@@ -40,6 +40,9 @@ def train(current_host, hosts, num_cpus, num_gpus, channel_input_dirs, model_dir
 
     if os.path.isfile(training_dir + '/train')
         train_sentences, train_labels, _ = get_dataset(training_dir + '/train')
+    else:
+        train_sentences = []
+        train_labels = []
 
     if os.path.isfile(training_dir + '/customtrainingdata')
         custom_sentences, custom_labels, _ = get_dataset(training_dir + '/customtrainingdata')
