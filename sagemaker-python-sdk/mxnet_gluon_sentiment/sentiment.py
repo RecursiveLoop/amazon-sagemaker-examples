@@ -8,6 +8,7 @@ import numpy as np
 import json
 import time
 import re
+import os
 from mxnet.io import DataIter, DataBatch, DataDesc
 import bisect, random
 from collections import Counter
@@ -36,7 +37,15 @@ def train(current_host, hosts, num_cpus, num_gpus, channel_input_dirs, model_dir
     ctx = mx.gpu() if num_gpus > 0 else mx.cpu()
 
     training_dir = channel_input_dirs['training']
-    train_sentences, train_labels, _ = get_dataset(training_dir + '/train')
+
+    if os.path.isfile(training_dir + '/train')
+        train_sentences, train_labels, _ = get_dataset(training_dir + '/train')
+
+    if os.path.isfile(training_dir + '/customtrainingdata')
+        custom_sentences, custom_labels, _ = get_dataset(training_dir + '/customtrainingdata')
+        train_sentences = train_sentences.join(custom_sentences)
+        train_labels = train_labels.join(custom_labels)
+
     val_sentences, val_labels, _ = get_dataset(training_dir + '/test')
 
     num_classes = len(set(train_labels))
