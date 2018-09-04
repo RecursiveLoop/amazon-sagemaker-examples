@@ -51,6 +51,11 @@ def train(current_host, hosts, num_cpus, num_gpus, channel_input_dirs, model_dir
 
     val_sentences, val_labels, _ = get_dataset(training_dir + '/test')
 
+    if os.path.isfile(training_dir + '/customtestdata')
+        val_custom_sentences, val_custom_labels, _ = get_dataset(training_dir + '/customtestdata')
+        val_sentences = val_sentences.join(val_custom_sentences)
+        val_labels = val_labels.join(val_custom_labels)
+
     num_classes = len(set(train_labels))
     vocab = create_vocab(train_sentences)
     vocab_size = len(vocab)
